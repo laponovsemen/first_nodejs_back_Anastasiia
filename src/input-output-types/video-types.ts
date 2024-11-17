@@ -8,3 +8,9 @@ export enum Resolutions {
   P1440 = '1440p',
   P2160 = '2160p',
 }
+
+export interface InputVideoType {
+  title: string;
+  author: string;
+  availableResolutions: Resolutions[] | null;
+}

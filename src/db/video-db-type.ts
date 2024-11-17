@@ -4,7 +4,7 @@ export interface VideoDBType {
     id: number;
     title: string;
     author: string;
-    canBeDownloaded: boolean;
+    canBeDownloaded: boolean | false;
     minAgeRestriction: number | null;
     createdAt: string;
     publicationDate: string;

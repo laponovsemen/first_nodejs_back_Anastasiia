@@ -1,8 +1,7 @@
 import {Router, Request, Response} from 'express'
 import {db} from '../db/db'
-import { create } from 'domain';
 import { SETTINGS } from '../settings';
-import { parse } from 'path';
+import { createVideo } from './createVideo';
 
 export const videoRouter = Router();
  
@@ -12,12 +11,7 @@ export const videoController = {
  
     res.status(200).json(videos) // отдаём видео в качестве ответа
   },
-  createVideo: (req: Request, res: Response) => {
-    const video = req.body // получаем видео из запроса
-    db.videos.push(video) // добавляем видео в базу данных
- 
-    res.status(201).json(video) // отдаём видео в качестве ответа
-  },
+  createVideo: (req: Request, res: Response) =>  createVideo(req, res),
   deleteVideo: (req: Request, res: Response) => {
     const id = parseInt(req.params.id); // получаем id видео из запроса
     const index = db.videos.findIndex((video) => video.id === id); // ищем индекс видео в базе данных
@@ -33,5 +27,5 @@ export const videoController = {
 }
 
 videoRouter.get(SETTINGS.PATH.VIDEOS, videoController.getVideos);
-videoRouter.post(SETTINGS.PATH.SPECIFIC_VIDEO, videoController.createVideo);
+videoRouter.post(SETTINGS.PATH.VIDEOS, videoController.createVideo);
 videoRouter.delete(SETTINGS.PATH.DELETE_ALL, videoController.deleteVideo);

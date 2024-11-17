@@ -4,17 +4,14 @@ exports.videoController = exports.videoRouter = void 0;
 const express_1 = require("express");
 const db_1 = require("../db/db");
 const settings_1 = require("../settings");
+const createVideo_1 = require("./createVideo");
 exports.videoRouter = (0, express_1.Router)();
 exports.videoController = {
     getVideos: (req, res) => {
         const videos = db_1.db.videos; // получаем видео из базы данных
         res.status(200).json(videos); // отдаём видео в качестве ответа
     },
-    createVideo: (req, res) => {
-        const video = req.body; // получаем видео из запроса
-        db_1.db.videos.push(video); // добавляем видео в базу данных
-        res.status(201).json(video); // отдаём видео в качестве ответа
-    },
+    createVideo: (req, res) => (0, createVideo_1.createVideo)(req, res),
     deleteVideo: (req, res) => {
         const id = parseInt(req.params.id); // получаем id видео из запроса
         const index = db_1.db.videos.findIndex((video) => video.id === id); // ищем индекс видео в базе данных
