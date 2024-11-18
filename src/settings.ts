@@ -5,9 +5,9 @@ export const SETTINGS = {
     // все хардкодные значения должны быть здесь, для удобства их изменения
     PORT: process.env.PORT || 3003,
     PATH: {
-        BASE: '/hometask_01/api',
-        VIDEOS: '/videos',
-        SPECIFIC_VIDEO: '/videos/:id',
+        BASE: '/videos',
+        VIDEOS: '/',
+        SPECIFIC_VIDEO: '/:id',
         DELETE_ALL: '/testing/all-data',
     },
 } 

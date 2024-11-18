@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import {SETTINGS} from './settings'
-import {videoRouter} from './videos/getVideosController'
+import {videoController, videoRouter} from './videos/getVideosController'
 
 
  
@@ -15,3 +15,5 @@ app.get('/', (req, res) => {
     res.status(200).json({version: '1.0'})
 })
 app.use(SETTINGS.PATH.BASE, videoRouter) 
+
+app.delete(SETTINGS.PATH.DELETE_ALL, videoController.deleteAllVideos)

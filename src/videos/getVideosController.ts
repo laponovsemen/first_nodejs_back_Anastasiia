@@ -7,25 +7,28 @@ export const videoRouter = Router();
  
 export const videoController = {
   getVideos: (req: Request, res: Response) => {
-    const videos = db.videos // получаем видео из базы данных
+    const videos = db.videos 
  
-    res.status(200).json(videos) // отдаём видео в качестве ответа
+    res.status(200).json(videos) 
   },
   createVideo: (req: Request, res: Response) =>  createVideo(req, res),
   deleteVideo: (req: Request, res: Response) => {
-    const id = parseInt(req.params.id); // получаем id видео из запроса
-    const index = db.videos.findIndex((video) => video.id === id); // ищем индекс видео в базе данных
+    const id = parseInt(req.params.id); 
+    const index = db.videos.findIndex((video) => video.id === id); 
  
-    if (index === -1) { // если видео не найдено
-      res.status(404).send('Video not found'); // отдаём ошибку
+    if (index === -1) { 
+      res.status(404).send('Video not found'); 
       return;
     }
  
-    db.videos.splice(index, 1); // удаляем видео из базы данных
-    res.status(204).send(); // отдаём пустой ответ
+    db.videos.splice(index, 1); 
+    res.status(204).send(); 
+  },
+  deleteAllVideos: (req: Request, res: Response) => {
+    db.videos = []; 
+    res.status(204).send();
   }
 }
 
 videoRouter.get(SETTINGS.PATH.VIDEOS, videoController.getVideos);
 videoRouter.post(SETTINGS.PATH.VIDEOS, videoController.createVideo);
-videoRouter.delete(SETTINGS.PATH.DELETE_ALL, videoController.deleteVideo);

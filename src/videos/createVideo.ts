@@ -8,15 +8,16 @@ const inputValidation = (video: InputVideoType) => {
   const errors: OutputErrorsType = {
     errorsMessages: []
   };
-
-  if (!video.title || video.title.length > 40) {
+  const title = video.title.trim()
+  if (!title || title.length > 40) {
       errors.errorsMessages?.push({
           message: 'Title is required and should not exceed 40 characters!',
           field: 'title'
       });
-  }
+  } 
+  const author = video.author.trim()
 
-  if (!video.author || video.author.length > 20) {
+  if (!author || author.length > 20) {
       errors.errorsMessages?.push({
           message: 'Author is required and should not exceed 20 characters!',
           field: 'author'

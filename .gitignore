@@ -1,0 +1,4 @@
+# Project explude paths
+node_modules/
+dist/
+.env
