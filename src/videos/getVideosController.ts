@@ -8,7 +8,7 @@ export const videoRouter = Router();
 export const videoController = {
   getVideos: (req: Request, res: Response) => {
     const videos = db.videos 
- 
+    console.log('get all videos if exist')
     res.status(200).json(videos) 
   },
   createVideo: (req: Request, res: Response) =>  createVideo(req, res),
