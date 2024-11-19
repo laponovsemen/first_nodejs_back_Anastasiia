@@ -16,3 +16,4 @@ exports.app.get('/', (req, res) => {
     res.status(200).json({ version: '1.0' });
 });
 exports.app.use(settings_1.SETTINGS.PATH.BASE, getVideosController_1.videoRouter);
+exports.app.delete(settings_1.SETTINGS.PATH.DELETE_ALL, getVideosController_1.videoController.deleteAllVideos);

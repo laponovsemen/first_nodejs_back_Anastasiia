@@ -1,6 +1,5 @@
 import {Router, Request, Response} from 'express'
 import {db} from '../db/db'
-import { SETTINGS } from '../settings';
 import { createVideo } from './createVideo';
 
 export const videoRouter = Router();
@@ -30,5 +29,5 @@ export const videoController = {
   }
 }
 
-videoRouter.get(SETTINGS.PATH.VIDEOS, videoController.getVideos);
-videoRouter.post(SETTINGS.PATH.VIDEOS, videoController.createVideo);
+videoRouter.get("/", videoController.getVideos);
+videoRouter.post("/", videoController.createVideo);
