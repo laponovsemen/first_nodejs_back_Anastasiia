@@ -54,7 +54,7 @@ const inputValidation = (video: Partial<VideoDBType>) => {
     return errors
 }
 
-export const updateVideo = (req: Request<any, any, Partial<VideoDBType>>, res: Response< VideoDBType | OutputErrorsType>) => {
+export const updateVideoF = (req: Request<any, any, Partial<VideoDBType>>, res: Response< VideoDBType | OutputErrorsType>) => {
     const video = db.videos.find(v => v.id === +req.params.id)
     if (!video) {
         res

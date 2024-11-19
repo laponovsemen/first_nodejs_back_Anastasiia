@@ -1,7 +1,7 @@
 import {Router, Request, Response} from 'express'
 import {db} from '../db/db'
 import { createVideo } from './createVideo';
-import { updateVideo } from './updateVideo';
+import { updateVideoF } from 'src/videos/updateVideo';
 
 
 export const videoRouter = Router();
@@ -36,7 +36,7 @@ export const videoController = {
  
     res.status(200).json(video); 
   },
-  updateVideo: (req: Request, res: Response) => updateVideo(req, res),
+  updateVideo: (req: Request, res: Response) => updateVideoF(req, res),
   deleteAllVideos: (req: Request, res: Response) => {
     db.videos = []; 
     res.status(204).send();
