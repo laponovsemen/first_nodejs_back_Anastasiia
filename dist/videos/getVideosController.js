@@ -4,7 +4,7 @@ exports.videoController = exports.videoRouter = void 0;
 const express_1 = require("express");
 const db_1 = require("../db/db");
 const createVideo_1 = require("./createVideo");
-const updateVideo_1 = require("src/videos/updateVideo");
+const updateVideo_1 = require("./updateVideo");
 exports.videoRouter = (0, express_1.Router)();
 exports.videoController = {
     getVideos: (req, res) => {

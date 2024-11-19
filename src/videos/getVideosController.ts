@@ -1,7 +1,7 @@
 import {Router, Request, Response} from 'express'
 import {db} from '../db/db'
 import { createVideo } from './createVideo';
-import { updateVideoF } from 'src/videos/updateVideo';
+import { updateVideoF } from './updateVideo';
 
 
 export const videoRouter = Router();
