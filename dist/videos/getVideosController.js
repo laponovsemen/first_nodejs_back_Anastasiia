@@ -4,7 +4,7 @@ exports.videoController = exports.videoRouter = void 0;
 const express_1 = require("express");
 const db_1 = require("../db/db");
 const createVideo_1 = require("./createVideo");
-const updateVideo_1 = require("./updateVideo");
+const updateVideo_1 = require("src/videos/updateVideo");
 exports.videoRouter = (0, express_1.Router)();
 exports.videoController = {
     getVideos: (req, res) => {
@@ -32,7 +32,7 @@ exports.videoController = {
         }
         res.status(200).json(video);
     },
-    updateVideo: (req, res) => (0, updateVideo_1.updateVideo)(req, res),
+    updateVideo: (req, res) => (0, updateVideo_1.updateVideoF)(req, res),
     deleteAllVideos: (req, res) => {
         db_1.db.videos = [];
         res.status(204).send();
