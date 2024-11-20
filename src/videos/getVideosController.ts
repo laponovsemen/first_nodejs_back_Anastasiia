@@ -10,14 +10,20 @@ export const videoController = {
   getVideos: (req: Request, res: Response) => {
     const videos = db.videos 
     console.log('get all videos if exist')
+
+    if (!videos.length) { 
+      res.status(404).send('No videos found');
+      return;
+    }
+    
     res.status(200).json(videos) 
   },
   createVideo: (req: Request, res: Response) =>  createVideo(req, res),
   deleteVideo: (req: Request, res: Response) => {
     const id = parseInt(req.params.id); 
     const index = db.videos.findIndex((video) => video.id === id); 
- 
-    if (index === -1) { 
+
+    if (index === -1 || !db.videos[index]) { 
       res.status(404).send('Video with this id not found'); 
       return;
     }

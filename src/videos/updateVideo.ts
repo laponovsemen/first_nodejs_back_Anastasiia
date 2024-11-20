@@ -44,14 +44,22 @@ const inputValidation = (video: Partial<VideoDBType>) => {
 
     const minAgeRestriction = video.minAgeRestriction
 
-    if (minAgeRestriction !== null && (typeof minAgeRestriction !== 'number' || minAgeRestriction < 0)) {
+    if (minAgeRestriction !== null && (typeof minAgeRestriction !== 'number' || minAgeRestriction < 1 || minAgeRestriction > 18)) {
         errors.errorsMessages?.push({
-            message: 'Field minAgeRestriction should be a positive number or null!',
+            message: 'Field minAgeRestriction should be an integer between 1 and 18 or null!',
             field: 'minAgeRestriction'
         });
     }
 
-    return errors
+    const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
+    if (video.publicationDate && !isoDateRegex.test(video.publicationDate)) {
+      errors.errorsMessages?.push({
+          message: 'Field publicationDate should be a valid ISO string!',
+          field: 'publicationDate'
+      });
+    }
+
+    return errors;
 }
 
 export const updateVideoF = (req: Request<any, any, Partial<VideoDBType>>, res: Response< VideoDBType | OutputErrorsType>) => {
@@ -74,12 +82,15 @@ export const updateVideoF = (req: Request<any, any, Partial<VideoDBType>>, res: 
             .json(errors)
         return
     }
+    const createdAt = new Date(video.createdAt);
+    createdAt.setMilliseconds(0);
+
+    const publicationDate = new Date(video.publicationDate);
+    publicationDate.setMilliseconds(0);
+
     const updatedVideo = {
         ...video,
         ...req.body,
-        id: video.id,
-        createdAt: video.createdAt,
-        publicationDate: video.publicationDate,
     }
 
     db.videos = db.videos.map(v => v.id === +req.params.id ? updatedVideo : v)

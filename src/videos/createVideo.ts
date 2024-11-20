@@ -8,14 +8,14 @@ const inputValidation = (video: InputVideoType) => {
   const errors: OutputErrorsType = {
     errorsMessages: []
   };
-  const title = video.title.trim()
+  const title = video.title?.trim()
   if (!title || title.length > 40) {
       errors.errorsMessages?.push({
           message: 'Title is required and should not exceed 40 characters!',
           field: 'title'
       });
   } 
-  const author = video.author.trim()
+  const author = video.author?.trim()
 
   if (!author || author.length > 20) {
       errors.errorsMessages?.push({
@@ -43,13 +43,20 @@ export const createVideo = (req: Request<any, any, InputVideoType>, res: Respons
             .json(errors)
         return
     }
+    const createdAt = new Date();
+    createdAt.setMilliseconds(0);
+    
+    const publicationDate = new Date(createdAt);
+    publicationDate.setDate(publicationDate.getDate() + 1);
+    publicationDate.setMilliseconds(0); 
+
     const newVideo: VideoDBType = {
-        ...req.body,
-        id: Date.now() + Math.random(),
-        createdAt: new Date().toISOString(),
-        publicationDate: new Date().toISOString(),
-        canBeDownloaded: true,
+        id: Math.floor(Date.now() / 1000), 
+        createdAt: createdAt.toISOString(),
+        publicationDate: publicationDate.toISOString(),
+        canBeDownloaded: false,
         minAgeRestriction: null,
+        ...req.body,
     }
     db.videos = [...db.videos, newVideo]
  
